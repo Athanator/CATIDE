@@ -1,0 +1,105 @@
+SELECT distinct
+	r.ac_registr As REG,
+	aircraft.ac_model,
+	aircraft.serialno MSN,
+	aircraft.mfg_date,
+CASE
+	WHEN r.location IN ('1CA1','1CA2') THEN 'FMGC'
+	WHEN r.location IN ('1CA1SW3','1CA2SW3','1CA1SW7','1CA2SW7') THEN 'FMS SW'
+	WHEN r.location IN ('1CA1SW9','1CA2SW9') THEN 'FG SW'
+	WHEN r.location IN ('1CC1','1CC2') THEN 'FAC'
+	WHEN r.location IN ('1CC1SW1','1CC2SW1') THEN 'FAC SW'
+	WHEN r.location IN ('2CA') THEN 'FCU'
+	
+	WHEN r.location IN ('2WT1','2WT2') THEN 'PFD DU'
+	WHEN r.location IN ('1WT1','1WT2','1WT3') THEN 'DMC'
+	WHEN r.location IN ('1WT1SW1','1WT2SW1','1WT3SW1') THEN 'DMC SW'
+	WHEN r.location IN ('1WW1','1WW2') THEN 'FWC'
+	WHEN r.location IN ('1FP1','1FP2','1FP3') THEN 'ADIRU'
+	WHEN r.location IN ('1FP1SW1','1FP2SW1','1FP3SW1') THEN 'ADIRU SW'
+	WHEN r.location IN ('1SH1','1SH2','1000SG') THEN 'TRANSPONDER'
+	WHEN r.location IN ('SW') THEN 'ALTITUDE ALERT'
+
+	END As Equipment,
+	
+	
+	CASE
+WHEN r.location IN ('SW') THEN 'N/A'
+ELSE	address .name 
+
+END As Manufacturer,
+CASE
+WHEN r.location IN ('SW') THEN 'N/A'
+ELSE r.partno
+END As Partno,
+	
+
+CASE
+	WHEN r.location IN ('1CA1','1CA2','1CA1SW3','1CA2SW3','1CA1SW7','1CA2SW7','1CA1SW9','1CA2SW9') THEN '22-10-01, 22-05-01, 22-83-01'
+	WHEN r.location IN ('2CA') THEN '22-10-01'
+	WHEN r.location IN ('1CC1','1CC2','1CC1SW1','1CC2SW1') THEN '22-10-01, 22-60-01' 
+	
+	WHEN r.location IN ('1WW1','1WW2') THEN '31-53-06'
+	WHEN r.location IN ('2WT1','2WT2','1WT1','1WT2','1WT3','1WT1SW1','1WT2SW1','1WT3SW1') THEN '31-63-01, 31-63-02, 31-63-03, 31-63-04, 34-05-08'
+	
+	WHEN r.location IN ('1FP1','1FP2','1FP3','1FP1SW1','1FP2SW1','1FP3SW1') THEN '34-10-01, 34-10-02, 34-10-03'
+	WHEN r.location IN ('1SH1','1SH2','1000SG') THEN '34-50-01'
+	WHEN r.location IN ('SW') THEN '31-53-06'
+	END As MEL_ITEM,
+r.serialno,
+	r.location As FIN,
+CASE 
+WHEN r.location IN ('1SH1','1SH2','1000SG') THEN aircraft.mode_s_code
+END ICAO_CODE,
+	r.date_inst
+	
+	
+	
+	FROM rotables r
+ 	
+
+
+	LEFT JOIN part				
+	ON r.partno = part.partno
+
+	LEFT JOIN rotables_req
+	ON r.psn = rotables_req.psn
+
+	LEFT JOIN forecast
+	ON rotables_req.psn = forecast.psn
+
+	LEFT JOIN rotables_reqint
+	ON rotables_req.roreqseqno_i = rotables_reqint.roreqseqno_i			
+  	
+	LEFT JOIN part_special
+	ON part.partno = part_special.partno
+
+	LEFT JOIN location
+    ON r.locationno_i = location.locationno_i
+
+	 
+  	LEFT JOIN od_header
+   
+    ON r.orderno = od_header.orderno
+  
+
+ 
+  LEFT JOIN aircraft
+   
+ON r.ac_registr = aircraft.ac_registr
+
+LEFT JOIN address
+ON part.manufacturer = address.address_i
+  WHERE r.ac_registr = 'EC-MAN' AND (r.location IN ('1CA1','1CA2','1CA1SW3','1CA2SW3','1CA1SW7','1CA2SW7','1CA1SW9','1CA2SW9','1CC1','1CC2','1CC1SW1','1CC2SW1',
+'2CA',
+
+
+'2WT1','2WT2','1WT1','1WT2','1WT3','1WT1SW1','1WT2SW1','1WT3SW1',
+
+'1WW1','1WW2',
+
+'1FP1','1FP2','1FP3','1FP1SW1','1FP2SW1','1FP3SW1', '1SH1', '1SH2', '1000SG', 'SW'
+
+
+) ) AND part.description NOT LIKE '%OBRM%'
+   ORDER BY MEL_ITEM, r.location 
