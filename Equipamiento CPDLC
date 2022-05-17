@@ -1,0 +1,268 @@
+SELECT distinct  /*CVR if datalink active*/ 
+
+
+CASE	
+WHEN r.location = '1RK' AND aircraft.mfg_date < 15439 THEN NULL
+ELSE r.ac_registr 
+
+END As REG,
+       CONCAT(
+          CONCAT(
+             'A',
+             SUBSTR(
+                aircraft.ac_model,
+                -3,
+                3
+             )
+          ),
+          CONCAT(
+             '-',
+             SUBSTR(
+                aircraft.ac_subtype,
+                -3,
+                3
+             )
+          )
+       ) As Model,
+       aircraft.serialno MSN,
+       CASE WHEN r.location IN (
+          '1FP1',
+          '1FP2',
+          '1FP3'
+       ) THEN 'ADIRU' WHEN r.location IN (
+          '1FP1SW1',
+          '1FP1SW2',
+          '1FP1SW3',
+          '1FP2SW1',
+          '1FP2SW2',
+          '1FP2SW3',
+          '1FP3SW1',
+          '1FP3SW2',
+          '1FP3SW3'
+       ) THEN 'ADIRU SW' WHEN r.location IN (
+          '1CA1',
+          '1CA2'
+       ) THEN 'FMGC' 
+
+WHEN r.location IN ('1RK') AND aircraft.mfg_date >= 15439 THEN 'CVR' WHEN r.location IN (
+          '1CA1SW3',
+          '1CA2SW3',
+          '1CA1SW7',
+          '1CA2SW7'
+       ) THEN 'FMS' WHEN r.location IN (
+          '1WW1',
+          '1WW2'
+       ) THEN 'FWC (FWS)' WHEN r.location IN (
+          '40RT1',
+          '40RT2'
+       ) THEN 'MMR (GPS)' WHEN r.location IN (
+          '3RE1',
+          '3RE2'
+       ) THEN 'HF'  WHEN r.location IN (
+          '1RG1',
+          '1RG2',
+          '1RG3',
+          '1RG4'
+       ) THEN 'RMP' WHEN r.location IN (
+          '1SG',
+          '100SG',
+          '1000SG'
+       ) THEN 'TCAS'  WHEN r.location IN (
+          '2TX1',
+          '2TX2'
+       ) THEN 'DCDU' WHEN r.location IN (
+          '3CA1',
+          '3CA2'
+       ) THEN 'MCDU' WHEN r.location IN (
+          '1RC3',
+          '10RC1',
+          '10RC2'
+       ) THEN 'VHF' WHEN r.location IN (
+          '10RC1SW1',
+          '10RC2SW1'
+       ) THEN 'VHF SW' 
+
+ WHEN r.location IN (
+          '9XU1',
+          '9XU2'
+          
+       ) THEN 'ATC MSG PB'
+
+WHEN r.location IN ('1TX1') THEN 'ATSU' WHEN r.location IN (
+          '20TXSW1',
+          '21TXSW1',
+          '30TXSW1',
+          '31TXSW1',
+          '25TXSW1',
+          '36TXSW1',
+          '37TXSW1'
+       ) THEN 'ATSU SW'  WHEN r.location IN ('1TW') THEN 'CFDIU' WHEN r.location IN ('2FS') THEN 'CLOCK'  End As Equipment,
+
+
+CASE
+WHEN r.location IN (
+          '9XU1',
+          '9XU2'
+          
+       ) THEN 'AIRBUS OPERATIONS SAS'       
+ELSE address.name 
+
+END As Manufacturer,
+       
+
+CASE
+WHEN r.location IN (
+          '9XU1',
+          '9XU2'
+          
+       ) THEN 'ABS095183LP100'
+ELSE r.partno
+END as partno,
+
+
+       CASE WHEN r.location IN (
+          '1FP1',
+          '1FP2',
+          '1FP3'
+       ) THEN '34-10-01 (02)(03), 34-10-04 (05)(06)' WHEN r.location IN (
+          '1FP1SW1',
+          '1FP1SW2',
+          '1FP1SW3',
+          '1FP2SW1',
+          '1FP2SW2',
+          '1FP2SW3',
+          '1FP3SW1',
+          '1FP3SW2',
+          '1FP3SW3'
+       ) THEN '34-10-01 (02)(03), 34-10-04 (05)(06)' WHEN r.location IN (
+          '1CA1',
+          '1CA2'
+       ) THEN '22-83-01' WHEN r.location IN ('1RK') THEN '23-71-01' WHEN r.location IN (
+          '1CA1SW3',
+          '1CA2SW3',
+          '1CA1SW7',
+          '1CA2SW7'
+       ) THEN '22-83-01' WHEN r.location IN (
+          '1WW1',
+          '1WW2'
+       ) THEN '31-53-01' WHEN r.location IN (
+          '40RT1',
+          '40RT2'
+       ) THEN '34-50-09' WHEN r.location IN (
+          '3RE1',
+          '3RE2'
+       ) THEN '23-20-03A'  WHEN r.location IN (
+          '1RG1',
+          '1RG2',
+          '1RG3',
+          '1RG4'
+       ) THEN '23-13-01' WHEN r.location IN (
+          '1SG',
+          '100SG',
+          '1000SG'
+       ) THEN '34-40-05'  WHEN r.location IN (
+          '2TX1',
+          '2TX2'
+       ) THEN '46-21-02' WHEN r.location IN (
+          '3CA1',
+          '3CA2'
+       ) THEN '22-82-01' WHEN r.location IN (
+          '1RC3',
+          '10RC1',
+          '10RC2'
+       ) THEN '23-10-02, 23-20-04' WHEN r.location IN (
+          '10RC1SW1',
+          '10RC2SW1'
+       ) THEN '23-10-02, 23-20-04' WHEN r.location IN ('1TX1') THEN '46-21-01, 46-21-04' 
+
+
+WHEN r.location IN (
+          '9XU1',
+          '9XU2'
+          
+       ) THEN '46-21-03'
+WHEN r.location IN (
+          '20TXSW1',
+          '21TXSW1',
+          '30TXSW1',
+          '31TXSW1',
+          '25TXSW1',
+          '36TXSW1',
+          '37TXSW1'
+       ) THEN '46-21-01, 46-21-04'  WHEN r.location IN ('1TW') THEN 'N/A' WHEN r.location IN ('2FS') THEN '31-20-01'  End As MEL_ITEM,
+       r.serialno,
+       r.location As FIN,
+       r.date_inst 	 	 	 	
+FROM rotables r  	   	
+LEFT JOIN part				 	ON r.partno = part.partno  	
+LEFT JOIN rotables_req 	ON r.psn = rotables_req.psn  	
+LEFT JOIN forecast 	ON rotables_req.psn = forecast.psn  	
+LEFT JOIN rotables_reqint 	ON rotables_req.roreqseqno_i = rotables_reqint.roreqseqno_i			   	 	
+LEFT JOIN part_special 	ON part.partno = part_special.partno  	
+LEFT JOIN location     ON r.locationno_i = location.locationno_i  	    	
+LEFT JOIN od_header         ON r.orderno = od_header.orderno         
+LEFT JOIN aircraft     ON r.ac_registr = aircraft.ac_registr  
+LEFT JOIN address ON part.manufacturer = address.address_i   
+WHERE r.ac_registr = 'EC-MAN' 
+      AND r.location IN (
+         '1FP1',
+         '1FP2',
+         '1FP3',
+         '1CA1',
+         '1CA2',
+         '1RK',
+         '1CA1SW3',
+         '1CA2SW3',
+         '1CA1SW7',
+         '1CA2SW7',
+         '1WW1',
+         '1WW2',
+         '40RT1',
+         '40RT2',
+         '3RE1',
+         '3RE2',
+         '1RG1',
+         '1RG2',
+         '1RG3',
+         '1RG4',
+         '1SG',
+         '100SG',
+         '1000SG',
+         '2TX1',
+         '2TX2',
+         '3CA1',
+         '3CA2',
+         '1RC3',
+         '10RC1',
+         '10RC2',
+         '10RC1SW1',
+         '10RC2SW1',
+         '1TX1',
+         '20TXSW1',
+         '21TXSW1',
+         '30TXSW1',
+         '31TXSW1',
+         '25TXSW1',
+'9XU1'	, '9XU2', /* Fake for ATC MSG pb*/
+         '36TXSW1',
+         '37TXSW1',
+         '1FP1SW1',
+         '1FP1SW2',
+         '1FP1SW3',
+         '1FP2SW1',
+         '1FP2SW2',
+         '1FP2SW3',
+         '1FP3SW1',
+         '1FP3SW2',
+         '1FP3SW3',
+         '2FS',
+         '1TW'
+      ) 
+      AND part.description NOT LIKE '%OBRM%' 
+      AND r.partno NOT LIKE '%DK12%' 
+      AND r.partno NOT LIKE '%266E5542-%'      AND (CASE	
+WHEN r.location = '1RK' AND aircraft.mfg_date < 15439 THEN NULL
+ELSE r.ac_registr 
+
+END) IS NOT NULL 
+ORDER BY MEL_ITEM, partno	 	   
