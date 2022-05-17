@@ -1,0 +1,141 @@
+SELECT distinct
+	r.ac_registr As REG,
+	aircraft.ac_model,
+	aircraft.serialno MSN,
+	aircraft.mfg_date,
+CASE
+	WHEN r.location IN ('1CA1','1CA2') THEN 'FMGC'
+	WHEN r.location IN ('1CA1SW3','1CA2SW3','1CA1SW7','1CA2SW7') THEN 'FMS SW'
+	WHEN r.location IN ('1CA1SW9','1CA2SW9') THEN 'FG SW'
+	WHEN r.location IN ('1CC1','1CC2') THEN 'FAC'
+	WHEN r.location IN ('1CC1SW1','1CC2SW1') THEN 'FAC SW'
+	WHEN r.location IN ('2CA') THEN 'FCU'
+	WHEN r.location IN ('40RT1','40RT2') THEN 'MMR (GPS)'
+	WHEN r.location IN ('22FN') THEN 'ISIS'
+	WHEN r.location IN ('2WT1','2WT2','3WT1','3WT2') THEN 'PFD/ND DU'
+	WHEN r.location IN ('1WT1SW1','1WT2SW1') THEN 'PFD/ND DU SW'
+	WHEN r.location IN ('2SA1','2SA2') THEN 'RADIO ALTIMETER'
+	WHEN r.location IN ('1WW1','1WW2') THEN 'FWC'
+	WHEN r.location IN ('2DM') THEN 'RAIN REPELLENT'
+	WHEN r.location IN ('6DB1','6DB2') THEN 'WIPER'
+	WHEN r.location IN ('10GG') THEN 'BSCU'	
+	WHEN r.location IN ('4CC') THEN 'TLU'
+	WHEN r.location IN ('1CE1','1CE2','1CE3') THEN 'SEC'
+	WHEN r.location IN ('1CE1SW1','1CE2SW1','1CE3SW1') THEN 'SEC SW'
+	WHEN r.location IN ('2CE1','2CE2') THEN 'ELAC'
+	WHEN r.location IN ('2CE1SW1','2CE2SW1') THEN 'ELAC SW'
+	WHEN r.location IN ('1FP1','1FP2','1FP3') THEN 'ADIRU'
+	WHEN r.location IN ('1FP1SW1','1FP2SW1','1FP3SW1') THEN 'ADIRU SW'
+	WHEN r.location IN ('6DA1','6DA2','6DA3') THEN 'PHC'
+	WHEN r.location IN ('2DG1','2DG2') THEN 'WHC'
+	WHEN r.location IN ('5GA1','5GA2') THEN 'LGCIU'
+	WHEN r.location IN ('1XU1','1XU2') THEN 'GCU'
+	WHEN r.location IN ('9XU1','9XU2') THEN 'GLC'
+	WHEN r.location IN ('1PU1','1PU2','1PE') THEN 'TR'
+	WHEN part.description LIKE '%INTEGRATED DRIVE G%' THEN 'IDG'
+	WHEN r.location IN ('SW') THEN 'SPOILER HYD. ACTUATION'
+	END As Equipment,
+	
+	
+	
+	CASE
+	 WHEN r.location IN ('SW') THEN 'N/A'
+	ELSE address .name  
+END As Manufacturer,
+CASE
+WHEN r.location IN ('SW') THEN 'N/A'
+ELSE r.partno
+
+END as Partno,
+	
+
+CASE
+	WHEN r.location IN ('1CA1','1CA2','1CA1SW3','1CA2SW3','1CA1SW7','1CA2SW7','1CA1SW9','1CA2SW9') THEN '22-83-01'
+	WHEN r.location IN ('2CA') THEN '22-81-03'
+	WHEN r.location IN ('1CC1','1CC2','1CC1SW1','1CC2SW1') THEN '22-60-01, 22-60-02' 
+	WHEN r.location IN ('1XU1','1XU2','9XU1','9XU2')  OR part.description LIKE '%INTEGRATED DRIVE G%'  THEN '24-22-01'
+	WHEN r.location IN ('2CE1','2CE2','2CE1SW1','2CE2SW1') THEN '27-93-01,27-93-02'
+	WHEN r.location IN ('1CE1','1CE2','1CE3', '1CE1SW1','1CE2SW1','1CE3SW1')  THEN '27-94-01, 27-94-02, 27-94-03'
+	WHEN r.location IN ('4CC') THEN '27-22-01'
+	WHEN r.location IN ('2DG1','2DG2')  THEN '30-42-01'
+	WHEN r.location IN ('6DA1','6DA2','6DA3') THEN '30-31-01'
+	WHEN r.location IN ('1WW1','1WW2') THEN '31-53-01'
+	WHEN r.location IN ('2WT1','2WT2','3WT1','3WT2','1WT1SW1','1WT2SW1') THEN '31-63-01, 31-63-02, 31-63-03, 31-63-04'
+	WHEN r.location IN ('5GA1','5GA2') THEN '32-31-01'
+	WHEN r.location IN ('1FP1','1FP2','1FP3','1FP1SW1','1FP2SW1','1FP3SW1') THEN '34-10-01,34-10-02, 34-10-03, 34-10-04, 34-10-05, 34-10-06'
+	WHEN r.location IN ('2SA1','2SA2') THEN '34-40-04'
+	WHEN r.location IN ('22FN') THEN '34-23-04'
+	WHEN r.location IN ('2DM','6DB1','6DB2') THEN '30-45-01'
+	WHEN r.location IN ('10GG') THEN '32-51-01'
+	WHEN r.location IN ('40RT1','40RT2') THEN '34-50-09' 
+	WHEN r.location IN ('1PU1','1PU2','1PE') THEN '24-32-01'
+	WHEN r.location IN ('SW') THEN '27-64-01, 27-64-02, 27-64-03, 27-64-04, 27-64-05'
+	END As MEL_ITEM,
+	r.serialno,
+	r.location As FIN,
+	r.date_inst
+	
+	
+	
+	FROM rotables r
+ 	
+
+
+	LEFT JOIN part				
+	ON r.partno = part.partno
+
+	LEFT JOIN rotables_req
+	ON r.psn = rotables_req.psn
+
+	LEFT JOIN forecast
+	ON rotables_req.psn = forecast.psn
+
+	LEFT JOIN rotables_reqint
+	ON rotables_req.roreqseqno_i = rotables_reqint.roreqseqno_i			
+  	
+	LEFT JOIN part_special
+	ON part.partno = part_special.partno
+
+	LEFT JOIN location
+    ON r.locationno_i = location.locationno_i
+
+	 
+  	LEFT JOIN od_header
+   
+    ON r.orderno = od_header.orderno
+  
+
+ 
+  LEFT JOIN aircraft
+   
+ON r.ac_registr = aircraft.ac_registr
+
+LEFT JOIN address
+ON part.manufacturer = address.address_i
+  WHERE r.ac_registr = 'EC-MAN' AND (r.location IN ('1CA1','1CA2','1CA1SW3','1CA2SW3','1CA1SW7','1CA2SW7','1CA1SW9','1CA2SW9','1CC1','1CC2','1CC1SW1','1CC2SW1',
+'2CA',
+'40RT1','40RT2',
+'22FN',
+'2WT1','2WT2','3WT1','3WT2','1WT1SW1','1WT2SW1',
+'2SA1','2SA2',
+'1WW1','1WW2',
+'2DM',
+'6DB1','6DB2',
+'2DG1','2DG2',
+'10GG',
+'4CC',
+'1PU1','1PU2','1PE',
+'2CE1','2CE2','2CE1SW1','2CE2SW1',
+'1FP1','1FP2','1FP3','1FP1SW1','1FP2SW1','1FP3SW1',
+'1XU1','1XU2','9XU1','9XU2',
+'1CE1','1CE2','1CE3','1CE1SW1','1CE2SW1','1CE3SW1',
+'6DA1','6DA2','6DA3',
+'5GA1','5GA2',
+'SW'
+) OR part.description LIKE '%INTEGRATED DRIVE G%' ) AND part.description NOT LIKE '%OBRM%'
+     ORDER BY MEL_ITEM, r.location
+
+	
+	
+
+
