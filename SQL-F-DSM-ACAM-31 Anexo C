@@ -1,0 +1,124 @@
+SELECT      
+
+
+/********************************************************************************************* Nº REFERENCIA**************************************************************************/
+CASE 
+
+WHEN ROWNUM = 1 THEN 52
+WHEN ROWNUM = 3 THEN 53
+WHEN ROWNUM = 5 THEN 54
+WHEN ROWNUM = 7 THEN 55
+WHEN ROWNUM = 9 THEN 56
+WHEN ROWNUM = 11 THEN 57
+WHEN ROWNUM = 13 THEN 58
+WHEN ROWNUM = 15 THEN 59
+WHEN ROWNUM = 17 THEN 60
+WHEN ROWNUM = 19 THEN 61
+WHEN ROWNUM = 21 THEN 62
+WHEN ROWNUM = 23 THEN 63
+WHEN ROWNUM = 25 THEN 64
+
+
+
+
+End as nº_ref,
+
+/********************************************************************************************* REQUISITO**************************************************************************/
+       CASE 
+
+
+WHEN ROWNUM = 1 THEN '26.50 Asientos, literas, cinturones de seguridad y arneses'
+WHEN ROWNUM = 3 THEN '26.60 Condiciones dinámicas del aterrizaje de emergencia'
+WHEN ROWNUM = 5 THEN '26.100 Ubicación de las salidas de emergencia'
+WHEN ROWNUM = 7 THEN '26.105 Acceso a la salida de emergencia'
+WHEN ROWNUM = 9 THEN '26.110 Marcas de salida de emergencia'
+WHEN ROWNUM = 11 THEN '26.120 Alumbrado interior de emergencia y funcionamiento de las luces de emergencia'
+WHEN ROWNUM = 13 THEN '26.150 Interiores de compartimento'
+WHEN ROWNUM = 15 THEN '26.155 Inflamabilidad de los revestimientos de los compartimentos de carga'
+WHEN ROWNUM = 17 THEN '26.156 Materiales de aislamiento térmico o acústico'
+WHEN ROWNUM = 19 THEN '26.160 Protección contra incendios de los lavabos'
+WHEN ROWNUM = 21 THEN '26.170 Extintores de incendios'
+WHEN ROWNUM = 23 THEN '26.200 Avisador acústico del tren de aterrizaje'
+WHEN ROWNUM = 25 THEN '26.250 Sistemas de apertura y cierre de la puerta del comportamiento de la tripulación de vuelo – incapacitación de un tripulante'
+
+
+END As requisito,
+
+
+
+/********************************************************************************************* MEDIO DE CUMPLIMIENTO**************************************************************************/
+CASE
+
+WHEN ROWNUM IN(2,4,6,8,10,12,14,16,18,20,22,24) THEN NULL
+WHEN ROWNUM =1 THEN 'Cubierto por el Diseño de Tipo de la aeronave.'
+WHEN ROWNUM =3 AND a.mfg_date >= 17947 THEN 'CHECK WITH SYSTEMS.CAMO'
+WHEN ROWNUM =3 AND a.mfg_date < 17947 THEN 'Certificado de aeronavegabilidad individual expedido por primera vez antes del 18 de febrero de 2021.'
+WHEN ROWNUM =5 THEN 'Cubierto bajo procedimiento MEL 52-07-03. Se describe en FCOM 52-10.'
+WHEN ROWNUM =7 THEN 'Cubierto por el Diseño de Tipo de la aeronave. Salidas de Emergencia señalizadas y libres de obstáculos que impidan la evacuación'
+WHEN ROWNUM IN(9,11) THEN 'Cubierto por el Diseño de Tipo de la aeronave. Se describe en FCOM 33-30.'
+
+WHEN ROWNUM =13 THEN 'Aeronave cumple con certificado de flamabilidad emitido por fabricante. Pegatinas de “No Fumar” se encuentran localizadas a lo largo de la cabina y lavabos; los receptáculos de basura están diseñados para contener el fuego y bloquearlo al exterior del contenedor'
+WHEN ROWNUM =15 THEN 'Aeronave cumple con certificado de flamabilidad emitido por fabricante'
+WHEN ROWNUM =17 AND a.mfg_date >= 17947 THEN 'CHECK WITH SYSTEMS.CAMO'
+WHEN ROWNUM =17 AND a.mfg_date < 17947 THEN 'Cubierto por el Diseño de Tipo de la aeronave'
+WHEN ROWNUM =19 THEN 'Detectores de humo en los lavabos son instalados con la MOD 26291 y las papeleras están dotadas un medio de extinción de fuego bajo la MOD 32229'
+
+WHEN ROWNUM = 21 AND a.mfg_date BETWEEN 17305 AND  17591 THEN 'a) Certificado de aeronavegabilidad individual expedido por primera vez antes del 18 de Febrero de 2020. b) El avión cuenta con extintores portátiles en cabina libres de halónn PN P3APP003010A según MOD 159341'
+WHEN ROWNUM = 21 AND a.mfg_date >=  17591 THEN 'a) El avión cuenta con extintores en los lavabos libres de halón PN BA24320A1 según MOD 32229. b) El avión cuenta con extintores portátiles en cabina libres de halónn PN P3APP003010A según MOD 159341'
+WHEN ROWNUM = 21 AND a.mfg_date <  17591 THEN 'a) Certificado de aeronavegabilidad individual expedido por primera vez antes del 18 de Febrero de 2020. b) Certificado de aeronavegabilidad individual expedido por primera vez antes del 18 de mayo de 2019'
+WHEN ROWNUM =23 THEN 'Una función del sistema de GPWS alerta, visual y auditivamente a la tripulación si la configuración de aterrizaje no es apropiada. Se describe en FCOM 34-SURV-40-20'
+WHEN ROWNUM =25 THEN 'El sistema CDLS permite a la tripulación de cabina de pasajeros solicitar acceso al compartimiento de vuelo mediante un código de seguridad '
+
+
+
+
+
+
+
+
+/*GENERIC*/
+ELSE 'CHECK WITH SYSTEMS.CAMO'
+END as medio_de_cumplimiento,
+
+
+
+
+
+
+
+
+
+/********************************************************************************************* SI**************************************************************************/
+CASE
+
+
+WHEN ROWNUM = 3 AND a.mfg_date >= 17947 THEN 'X'
+
+
+WHEN ROWNUM = 21 AND a.mfg_date >=  17591 THEN 'X'
+
+WHEN ROWNUM =17 AND a.mfg_date < 17947 THEN 'X'
+WHEN ROWNUM IN(1,5,7,9,11,13,15, 19,23,25) THEN 'X'
+END As si,
+
+
+
+
+/********************************************************************************************* NA**************************************************************************/
+CASE
+
+/********************************************************************************************* CAT.IDE.A.110**************************************************************************/
+WHEN ROWNUM =3 AND a.mfg_date < 17947 THEN 'X'
+WHEN ROWNUM = 21 AND a.mfg_date BETWEEN 17305 AND  17591 THEN 'X'
+WHEN ROWNUM = 21 AND a.mfg_date <  17305 THEN 'X'
+WHEN ROWNUM =17 AND a.mfg_date >= 17947 THEN 'X'
+
+END as NA
+
+
+
+
+
+FROM aircraft a
+LEFT JOIN ALL_OBJECTS ao ON a.investigation = ao.secondary
+WHERE a.status = 0 AND a.ac_registr = 'EC-MAN' AND rownum <= 25
