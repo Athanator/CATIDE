@@ -90,7 +90,7 @@ MAX(dh3.issue_date) OVER (PARTITION BY wh.ac_registr) as prova_date
 
 FROM doc_header dh3
 
-INNER JOIN (SELECT DISTINCT wo_event_link.event_key_parent, wo_event_link.event_perfno_i, wo_event_link.event_status FROM wo_event_link WHERE wo_event_link.pending_status = 0 AND wo_event_link.event_type = 'DOC_EFF' AND wo_event_link.event_status IN('C','V','F')) wel ON dh3.docno_i = wel.event_key_parent
+INNER JOIN (SELECT DISTINCT wo_event_link.event_key_parent, wo_event_link.event_perfno_i, wo_event_link.event_status FROM wo_event_link WHERE wo_event_link.pending_status = 0 AND wo_event_link.event_type = 'MED' AND wo_event_link.event_status IN('C','V','F')) wel ON dh3.docno_i = wel.event_key_parent
 LEFT JOIN wo_header wh ON wel.event_perfno_i = wh.event_perfno_i
 
 WHERE dh3.docno IN('AED2019-47M', 'AED2019-34M', 'AED2019-35M', 'AED2019-42M', 'AED2015-35M', 'AED2019-36M', 'AED2019-37M' )   AND wh.ac_registr = a.ac_registr)) IN('AED2019-47M')  THEN 'La aeronave cuenta con 180 chalecos salvavidas debajo del asiento para personas mayores de 24 meses además de 3 de spare. Por otra parte, se dispone de 14 chalecos salvavidas destinados a personas menores de 24 meses'
@@ -111,7 +111,7 @@ MAX(dh3.issue_date) OVER (PARTITION BY wh.ac_registr) as prova_date
 
 FROM doc_header dh3
 
-INNER JOIN (SELECT DISTINCT wo_event_link.event_key_parent, wo_event_link.event_perfno_i, wo_event_link.event_status FROM wo_event_link WHERE wo_event_link.pending_status = 0 AND wo_event_link.event_type = 'DOC_EFF' AND wo_event_link.event_status IN('C','V','F')) wel ON dh3.docno_i = wel.event_key_parent
+INNER JOIN (SELECT DISTINCT wo_event_link.event_key_parent, wo_event_link.event_perfno_i, wo_event_link.event_status FROM wo_event_link WHERE wo_event_link.pending_status = 0 AND wo_event_link.event_type = 'MED' AND wo_event_link.event_status IN('C','V','F')) wel ON dh3.docno_i = wel.event_key_parent
 LEFT JOIN wo_header wh ON wel.event_perfno_i = wh.event_perfno_i
 
 WHERE dh3.docno IN('AED2019-47M', 'AED2019-34M', 'AED2019-35M', 'AED2019-42M', 'AED2015-35M', 'AED2019-36M', 'AED2019-37M' )   AND wh.ac_registr = a.ac_registr)) IN('AED2015-35M')  THEN 'La aeronave cuenta con 180 chalecos salvavidas debajo del asiento para personas mayores de 24 meses además de 10 de spare. Por otra parte, se dispone de 20 chalecos salvavidas destinados a personas menores de 24 meses'
@@ -132,7 +132,7 @@ MAX(dh3.issue_date) OVER (PARTITION BY wh.ac_registr) as prova_date
 
 FROM doc_header dh3
 
-INNER JOIN (SELECT DISTINCT wo_event_link.event_key_parent, wo_event_link.event_perfno_i, wo_event_link.event_status FROM wo_event_link WHERE wo_event_link.pending_status = 0 AND wo_event_link.event_type = 'DOC_EFF' AND wo_event_link.event_status IN('C','V','F')) wel ON dh3.docno_i = wel.event_key_parent
+INNER JOIN (SELECT DISTINCT wo_event_link.event_key_parent, wo_event_link.event_perfno_i, wo_event_link.event_status FROM wo_event_link WHERE wo_event_link.pending_status = 0 AND wo_event_link.event_type = 'MED' AND wo_event_link.event_status IN('C','V','F')) wel ON dh3.docno_i = wel.event_key_parent
 LEFT JOIN wo_header wh ON wel.event_perfno_i = wh.event_perfno_i
 
 WHERE dh3.docno IN('AED2019-47M', 'AED2019-34M', 'AED2019-35M', 'AED2019-42M', 'AED2015-35M', 'AED2019-36M', 'AED2019-37M' )   AND wh.ac_registr = a.ac_registr)) IN('AED2019-35M','AED2019-36M','AED2019-37M')  THEN 'La aeronave cuenta con 180 chalecos salvavidas debajo del asiento para personas mayores de 24 meses además de 3 de spare. Por otra parte, se dispone de 14 chalecos salvavidas destinados a personas menores de 24 meses'
@@ -153,7 +153,7 @@ MAX(dh3.issue_date) OVER (PARTITION BY wh.ac_registr) as prova_date
 
 FROM doc_header dh3
 
-INNER JOIN (SELECT DISTINCT wo_event_link.event_key_parent, wo_event_link.event_perfno_i, wo_event_link.event_status FROM wo_event_link WHERE wo_event_link.pending_status = 0 AND wo_event_link.event_type = 'DOC_EFF' AND wo_event_link.event_status IN('C','V','F')) wel ON dh3.docno_i = wel.event_key_parent
+INNER JOIN (SELECT DISTINCT wo_event_link.event_key_parent, wo_event_link.event_perfno_i, wo_event_link.event_status FROM wo_event_link WHERE wo_event_link.pending_status = 0 AND wo_event_link.event_type = 'MED' AND wo_event_link.event_status IN('C','V','F')) wel ON dh3.docno_i = wel.event_key_parent
 LEFT JOIN wo_header wh ON wel.event_perfno_i = wh.event_perfno_i
 
 WHERE dh3.docno IN('AED2019-47M', 'AED2019-34M', 'AED2019-35M', 'AED2019-42M', 'AED2015-35M', 'AED2019-36M', 'AED2019-37M' )   AND wh.ac_registr = a.ac_registr)) IN('AED2019-42M')  THEN 'La aeronave cuenta con 144 chalecos salvavidas debajo del asiento para personas mayores de 24 meses además de 3 de spare. Por otra parte, se dispone de 14 chalecos salvavidas destinados a personas menores de 24 meses'
@@ -174,7 +174,7 @@ MAX(dh3.issue_date) OVER (PARTITION BY wh.ac_registr) as prova_date
 
 FROM doc_header dh3
 
-INNER JOIN (SELECT DISTINCT wo_event_link.event_key_parent, wo_event_link.event_perfno_i, wo_event_link.event_status FROM wo_event_link WHERE wo_event_link.pending_status = 0 AND wo_event_link.event_type = 'DOC_EFF' AND wo_event_link.event_status IN('C','V','F')) wel ON dh3.docno_i = wel.event_key_parent
+INNER JOIN (SELECT DISTINCT wo_event_link.event_key_parent, wo_event_link.event_perfno_i, wo_event_link.event_status FROM wo_event_link WHERE wo_event_link.pending_status = 0 AND wo_event_link.event_type = 'MED' AND wo_event_link.event_status IN('C','V','F')) wel ON dh3.docno_i = wel.event_key_parent
 LEFT JOIN wo_header wh ON wel.event_perfno_i = wh.event_perfno_i
 
 WHERE dh3.docno IN('AED2019-47M', 'AED2019-34M', 'AED2019-35M', 'AED2019-42M', 'AED2015-35M', 'AED2019-36M', 'AED2019-37M' )   AND wh.ac_registr = a.ac_registr)) IN('AED2019-34M')  THEN 'La aeronave cuenta con 220 chalecos salvavidas debajo del asiento para personas mayores de 24 meses además de 3 de spare. Por otra parte, se dispone de 14 chalecos salvavidas destinados a personas menores de 24 meses'
@@ -195,7 +195,7 @@ MAX(dh3.issue_date) OVER (PARTITION BY wh.ac_registr) as prova_date
 
 FROM doc_header dh3
 
-INNER JOIN (SELECT DISTINCT wo_event_link.event_key_parent, wo_event_link.event_perfno_i, wo_event_link.event_status FROM wo_event_link WHERE wo_event_link.pending_status = 0 AND wo_event_link.event_type = 'DOC_EFF' AND wo_event_link.event_status IN('C','V','F')) wel ON dh3.docno_i = wel.event_key_parent
+INNER JOIN (SELECT DISTINCT wo_event_link.event_key_parent, wo_event_link.event_perfno_i, wo_event_link.event_status FROM wo_event_link WHERE wo_event_link.pending_status = 0 AND wo_event_link.event_type = 'MED' AND wo_event_link.event_status IN('C','V','F')) wel ON dh3.docno_i = wel.event_key_parent
 LEFT JOIN wo_header wh ON wel.event_perfno_i = wh.event_perfno_i
 
 WHERE dh3.docno IN('AED2019-47M', 'AED2019-34M', 'AED2019-35M', 'AED2019-42M', 'AED2015-35M', 'AED2019-36M', 'AED2019-37M' )   AND wh.ac_registr = a.ac_registr)) IN('AED2019-34M')  THEN 'La aeronave cuenta con 212 chalecos salvavidas debajo del asiento para personas mayores de 24 meses además de 3 de spare. Por otra parte, se dispone de 14 chalecos salvavidas destinados a personas menores de 24 meses'
@@ -226,7 +226,7 @@ MAX(dh3.issue_date) OVER (PARTITION BY wh.ac_registr) as prova_date
 
 FROM doc_header dh3
 
-INNER JOIN (SELECT DISTINCT wo_event_link.event_key_parent, wo_event_link.event_perfno_i, wo_event_link.event_status FROM wo_event_link WHERE wo_event_link.pending_status = 0 AND wo_event_link.event_type = 'DOC_EFF' AND wo_event_link.event_status IN('C','V','F')) wel ON dh3.docno_i = wel.event_key_parent
+INNER JOIN (SELECT DISTINCT wo_event_link.event_key_parent, wo_event_link.event_perfno_i, wo_event_link.event_status FROM wo_event_link WHERE wo_event_link.pending_status = 0 AND wo_event_link.event_type = 'MED' AND wo_event_link.event_status IN('C','V','F')) wel ON dh3.docno_i = wel.event_key_parent
 LEFT JOIN wo_header wh ON wel.event_perfno_i = wh.event_perfno_i
 
 WHERE dh3.docno IN('162066' ,'AZQ01-53AB-EI-002', 'MEI-4140-EO')   AND wh.ac_registr = a.ac_registr)) IN('162066')   THEN 'Requerimiento cubierto con MOD 162066'
@@ -247,7 +247,7 @@ MAX(dh3.issue_date) OVER (PARTITION BY wh.ac_registr) as prova_date
 
 FROM doc_header dh3
 
-INNER JOIN (SELECT DISTINCT wo_event_link.event_key_parent, wo_event_link.event_perfno_i, wo_event_link.event_status FROM wo_event_link WHERE wo_event_link.pending_status = 0 AND wo_event_link.event_type = 'DOC_EFF' AND wo_event_link.event_status IN('C','V','F')) wel ON dh3.docno_i = wel.event_key_parent
+INNER JOIN (SELECT DISTINCT wo_event_link.event_key_parent, wo_event_link.event_perfno_i, wo_event_link.event_status FROM wo_event_link WHERE wo_event_link.pending_status = 0 AND wo_event_link.event_type = 'MED' AND wo_event_link.event_status IN('C','V','F')) wel ON dh3.docno_i = wel.event_key_parent
 LEFT JOIN wo_header wh ON wel.event_perfno_i = wh.event_perfno_i
 
 WHERE dh3.docno IN('162066' ,'AZQ01-53AB-EI-002', 'MEI-4140-EO')   AND wh.ac_registr = a.ac_registr)) IN('MEI-4140-EO')   THEN 'Requerimiento cubierto con Orden de Ingeniería P21 MEI-4140-EO'
@@ -268,7 +268,7 @@ MAX(dh3.issue_date) OVER (PARTITION BY wh.ac_registr) as prova_date
 
 FROM doc_header dh3
 
-INNER JOIN (SELECT DISTINCT wo_event_link.event_key_parent, wo_event_link.event_perfno_i, wo_event_link.event_status FROM wo_event_link WHERE wo_event_link.pending_status = 0 AND wo_event_link.event_type = 'DOC_EFF' AND wo_event_link.event_status IN('C','V','F')) wel ON dh3.docno_i = wel.event_key_parent
+INNER JOIN (SELECT DISTINCT wo_event_link.event_key_parent, wo_event_link.event_perfno_i, wo_event_link.event_status FROM wo_event_link WHERE wo_event_link.pending_status = 0 AND wo_event_link.event_type = 'MED' AND wo_event_link.event_status IN('C','V','F')) wel ON dh3.docno_i = wel.event_key_parent
 LEFT JOIN wo_header wh ON wel.event_perfno_i = wh.event_perfno_i
 
 WHERE dh3.docno IN('162066' ,'AZQ01-53AB-EI-002', 'MEI-4140-EO')   AND wh.ac_registr = a.ac_registr)) IN('AZQ01-53AB-EI-002')   THEN 'Requerimiento cubierto con Orden de Ingeniería P21 AZQ01-53AB-EI-002 (STC 10067204) '
@@ -325,7 +325,7 @@ MAX(dh3.issue_date) OVER (PARTITION BY wh.ac_registr) as prova_date
 
 FROM doc_header dh3
 
-INNER JOIN (SELECT DISTINCT wo_event_link.event_key_parent, wo_event_link.event_perfno_i, wo_event_link.event_status FROM wo_event_link WHERE wo_event_link.pending_status = 0 AND wo_event_link.event_type = 'DOC_EFF' AND wo_event_link.event_status IN('C','V','F')) wel ON dh3.docno_i = wel.event_key_parent
+INNER JOIN (SELECT DISTINCT wo_event_link.event_key_parent, wo_event_link.event_perfno_i, wo_event_link.event_status FROM wo_event_link WHERE wo_event_link.pending_status = 0 AND wo_event_link.event_type = 'MED' AND wo_event_link.event_status IN('C','V','F')) wel ON dh3.docno_i = wel.event_key_parent
 LEFT JOIN wo_header wh ON wel.event_perfno_i = wh.event_perfno_i
 
 WHERE dh3.docno IN('162066' ,'AZQ01-53AB-EI-002', 'MEI-4140-EO')   AND wh.ac_registr = a.ac_registr)) IN('162066')   THEN 'Requerimiento cubierto con MOD 162066'
@@ -346,7 +346,7 @@ MAX(dh3.issue_date) OVER (PARTITION BY wh.ac_registr) as prova_date
 
 FROM doc_header dh3
 
-INNER JOIN (SELECT DISTINCT wo_event_link.event_key_parent, wo_event_link.event_perfno_i, wo_event_link.event_status FROM wo_event_link WHERE wo_event_link.pending_status = 0 AND wo_event_link.event_type = 'DOC_EFF' AND wo_event_link.event_status IN('C','V','F')) wel ON dh3.docno_i = wel.event_key_parent
+INNER JOIN (SELECT DISTINCT wo_event_link.event_key_parent, wo_event_link.event_perfno_i, wo_event_link.event_status FROM wo_event_link WHERE wo_event_link.pending_status = 0 AND wo_event_link.event_type = 'MED' AND wo_event_link.event_status IN('C','V','F')) wel ON dh3.docno_i = wel.event_key_parent
 LEFT JOIN wo_header wh ON wel.event_perfno_i = wh.event_perfno_i
 
 WHERE dh3.docno IN('162066' ,'AZQ01-53AB-EI-002', 'MEI-4140-EO')   AND wh.ac_registr = a.ac_registr)) IN('MEI-4140-EO')   THEN 'Requerimiento cubierto con Orden de Ingeniería P21 MEI-4140-EO'
@@ -367,7 +367,7 @@ MAX(dh3.issue_date) OVER (PARTITION BY wh.ac_registr) as prova_date
 
 FROM doc_header dh3
 
-INNER JOIN (SELECT DISTINCT wo_event_link.event_key_parent, wo_event_link.event_perfno_i, wo_event_link.event_status FROM wo_event_link WHERE wo_event_link.pending_status = 0 AND wo_event_link.event_type = 'DOC_EFF' AND wo_event_link.event_status IN('C','V','F')) wel ON dh3.docno_i = wel.event_key_parent
+INNER JOIN (SELECT DISTINCT wo_event_link.event_key_parent, wo_event_link.event_perfno_i, wo_event_link.event_status FROM wo_event_link WHERE wo_event_link.pending_status = 0 AND wo_event_link.event_type = 'MED' AND wo_event_link.event_status IN('C','V','F')) wel ON dh3.docno_i = wel.event_key_parent
 LEFT JOIN wo_header wh ON wel.event_perfno_i = wh.event_perfno_i
 
 WHERE dh3.docno IN('162066' ,'AZQ01-53AB-EI-002', 'MEI-4140-EO')   AND wh.ac_registr = a.ac_registr)) IN('AZQ01-53AB-EI-002')   THEN 'Requerimiento cubierto con Orden de Ingeniería P21 AZQ01-53AB-EI-002 (STC 10067204) '
@@ -410,7 +410,7 @@ MAX(dh3.issue_date) OVER (PARTITION BY wh.ac_registr) as prova_date
 
 FROM doc_header dh3
 
-INNER JOIN (SELECT DISTINCT wo_event_link.event_key_parent, wo_event_link.event_perfno_i, wo_event_link.event_status FROM wo_event_link WHERE wo_event_link.pending_status = 0 AND wo_event_link.event_type = 'DOC_EFF' AND wo_event_link.event_status IN('C','V','F')) wel ON dh3.docno_i = wel.event_key_parent
+INNER JOIN (SELECT DISTINCT wo_event_link.event_key_parent, wo_event_link.event_perfno_i, wo_event_link.event_status FROM wo_event_link WHERE wo_event_link.pending_status = 0 AND wo_event_link.event_type = 'MED' AND wo_event_link.event_status IN('C','V','F')) wel ON dh3.docno_i = wel.event_key_parent
 LEFT JOIN wo_header wh ON wel.event_perfno_i = wh.event_perfno_i
 
 WHERE dh3.docno IN('162066' ,'AZQ01-53AB-EI-002', 'MEI-4140-EO')   AND wh.ac_registr = a.ac_registr)) IN('162066')   THEN 'Requerimiento cubierto con MOD 162066'
@@ -431,7 +431,7 @@ MAX(dh3.issue_date) OVER (PARTITION BY wh.ac_registr) as prova_date
 
 FROM doc_header dh3
 
-INNER JOIN (SELECT DISTINCT wo_event_link.event_key_parent, wo_event_link.event_perfno_i, wo_event_link.event_status FROM wo_event_link WHERE wo_event_link.pending_status = 0 AND wo_event_link.event_type = 'DOC_EFF' AND wo_event_link.event_status IN('C','V','F')) wel ON dh3.docno_i = wel.event_key_parent
+INNER JOIN (SELECT DISTINCT wo_event_link.event_key_parent, wo_event_link.event_perfno_i, wo_event_link.event_status FROM wo_event_link WHERE wo_event_link.pending_status = 0 AND wo_event_link.event_type = 'MED' AND wo_event_link.event_status IN('C','V','F')) wel ON dh3.docno_i = wel.event_key_parent
 LEFT JOIN wo_header wh ON wel.event_perfno_i = wh.event_perfno_i
 
 WHERE dh3.docno IN('162066' ,'AZQ01-53AB-EI-002', 'MEI-4140-EO')   AND wh.ac_registr = a.ac_registr)) IN('MEI-4140-EO')   THEN 'Requerimiento cubierto con Orden de Ingeniería P21 MEI-4140-EO'
@@ -452,7 +452,7 @@ MAX(dh3.issue_date) OVER (PARTITION BY wh.ac_registr) as prova_date
 
 FROM doc_header dh3
 
-INNER JOIN (SELECT DISTINCT wo_event_link.event_key_parent, wo_event_link.event_perfno_i, wo_event_link.event_status FROM wo_event_link WHERE wo_event_link.pending_status = 0 AND wo_event_link.event_type = 'DOC_EFF' AND wo_event_link.event_status IN('C','V','F')) wel ON dh3.docno_i = wel.event_key_parent
+INNER JOIN (SELECT DISTINCT wo_event_link.event_key_parent, wo_event_link.event_perfno_i, wo_event_link.event_status FROM wo_event_link WHERE wo_event_link.pending_status = 0 AND wo_event_link.event_type = 'MED' AND wo_event_link.event_status IN('C','V','F')) wel ON dh3.docno_i = wel.event_key_parent
 LEFT JOIN wo_header wh ON wel.event_perfno_i = wh.event_perfno_i
 
 WHERE dh3.docno IN('162066' ,'AZQ01-53AB-EI-002', 'MEI-4140-EO')   AND wh.ac_registr = a.ac_registr)) IN('AZQ01-53AB-EI-002')   THEN 'Requerimiento cubierto con Orden de Ingeniería P21 AZQ01-53AB-EI-002 (STC 10067204) '
